@@ -1,0 +1,5 @@
+val split :RDD[String] = rdd.flatMap(_.split(" "))
+val trim :RDD[String] = split.map(_.trim.toLowerCase)
+val stopwordsRemoved = trim.filter( x => !Set("and", "the", "is", "to", "she", "he").contains(x))
+val assignOne = stopwordsRemoved.map((_, 1))
+val counts = assignOne.reduceByKey(_ + _)
